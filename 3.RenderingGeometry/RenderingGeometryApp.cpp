@@ -24,10 +24,10 @@ void RenderingGeometryApp::startup()
 
 	m_vertices =
 	{//this was copied wrong -luke
-		{ glm::vec4(-10, 10, 0, 1), glm::vec4(-10, -10, 0, 1) },
-		{ glm::vec4(10, 10, 0, 1), glm::vec4(-10, -10, 0, 1) },
-		{ glm::vec4(-10, -10, 0, 1), glm::vec4(-10, -10, 0, 1) },
-		{ glm::vec4(10, -10, 0, 1), glm::vec4(-10, -10, 0, 1) },
+		{ glm::vec4(-10, 10, 0, 1), glm::vec4(1, 0, 0, 1) },
+		{ glm::vec4(10, 10, 0, 1), glm::vec4(0, 1, 0, 1) },
+		{ glm::vec4(10, -10, 0, 1), glm::vec4(0, 0, 1, 1) },
+		{ glm::vec4(-10, -10, 0, 1), glm::vec4(0, 0, 0, 1) },
 	};
 
 	glGenBuffers(1, &m_vbo);

@@ -1,9 +1,24 @@
 #pragma once
-
 #include "Application.h"
+#include <Transform.h>
+#include "MeshRenderer.h"
+#include "Shader.h"
 
 class GUIApplication : public Application
 {
+public:
+
+	MeshRenderer* mesh;
+	Shader* shader;
+	unsigned int m_program;
+
+	glm::mat4 m_model;
+	glm::mat4 m_view;
+	glm::mat4 m_projection;
+
+	GUIApplication();
+	~GUIApplication();
+
 	// Inherited via Application
 	virtual void startup() override;
 	virtual void shutdown() override;

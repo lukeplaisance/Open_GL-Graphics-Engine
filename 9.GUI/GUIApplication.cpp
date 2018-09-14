@@ -38,7 +38,7 @@ void GUIApplication::shutdown()
 
 void GUIApplication::update(float dt)
 {
-	glm::vec3 eye = glm::vec3(0, -10, -20);
+	glm::vec3 eye = glm::vec3(0, -10, 20);
 	m_view = glm::lookAt(eye, m_model[3].xyz(), glm::vec3(0, 1, 0));
 	m_projection = glm::perspective(glm::quarter_pi<float>(), 800 / (float)600, 0.1f, 1000.f);
 }
@@ -65,7 +65,7 @@ void GUIApplication::draw()
 
 	shader->Bind();
 	int handle = shader->getUniform("ProjectionViewWorld");
-	glm::mat4 mvp = m_projection * m_view * m_model;
+	glm::mat4 mvp = m_projection * m_view * m_transform->getModel();
 	glUniformMatrix4fv(handle, 1, GL_FALSE, &mvp[0][0]);
 	mesh->render();
 	shader->UnBind();

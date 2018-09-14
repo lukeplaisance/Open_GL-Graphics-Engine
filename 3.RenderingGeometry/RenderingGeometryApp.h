@@ -2,25 +2,23 @@
 #include <Application.h>
 #include <vector>
 #include <Transform.h>
+#include "MeshRenderer.h"
+#include "Shader.h"
 
 
 class RenderingGeometryApp :public Application
 {
 public:
-	struct Vertex
-	{
-		glm::vec4 position;
-		glm::vec4 color;
-	};
 
-	RenderingGeometryApp();
-	std::vector<int> m_indices;
-	std::vector<Vertex> m_vertices;
-	unsigned int m_vbo;
-	unsigned int m_ibo;
-	unsigned int m_vao;
+	MeshRenderer* mesh;
+	Shader* shader;
 	unsigned int m_program;
 
+	glm::mat4 m_model;
+	glm::mat4 m_view;
+	glm::mat4 m_projection;
+
+	RenderingGeometryApp();
 	~RenderingGeometryApp();
 
 	// Inherited via Application

@@ -1,4 +1,4 @@
-#include <glm\glm.hpp>
+#include <glm/glm\glm.hpp>
 #include "gl_core_4_4.h"
 #pragma once
 class Shader

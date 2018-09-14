@@ -128,11 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="RenderingGeometryApp.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="RenderingGeometryApp.h" />
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bootstrap\bootstrap.vcxproj">

@@ -16,6 +16,9 @@ public:
 	glm::mat4 m_view;
 	glm::mat4 m_projection;
 
+	int v4[4];
+	Transform* m_transform;
+
 	GUIApplication();
 	~GUIApplication();
 

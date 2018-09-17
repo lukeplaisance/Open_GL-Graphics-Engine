@@ -8,7 +8,7 @@
 Application::Application() :
 	m_window(nullptr),
 	m_gameover(false),
-	m_clearColor{ 1,1,1,1 },
+	m_clearColor{ 0,0,0,1 },
 	m_runningTime(0)
 {}
 
@@ -28,7 +28,7 @@ void Application::run(const char * title, unsigned int width,
 	auto minor = ogl_GetMinorVersion();
 	std::printf("major:: %i.%i", major, minor);
 
-	glClearColor(1.f, 1.f, 1.f, 1);//sets the clear color for the window
+	glClearColor(0.f, 0.f, 0.f, 1);//sets the clear color for the window
 	glEnable(GL_DEPTH_TEST); // enables the depth buffer 
 
 	ImGui_ImplGlfwGL3_Init(m_window, true);

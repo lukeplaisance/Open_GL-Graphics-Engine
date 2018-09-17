@@ -16,6 +16,7 @@ public:
 	glm::mat4 Rotate(float radians, glm::vec3 axis);
 	glm::mat4 Scale(float size);
 	glm::vec3 getLocalPosition();
+	glm::vec3 getWorldPosition();
 	glm::mat4 getModel();
 
 private:	

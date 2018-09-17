@@ -84,6 +84,11 @@ glm::vec3 Transform::getLocalPosition()
 	return m_localPosition;
 }
 
+glm::vec3 Transform::getWorldPosition()
+{
+	return m_worldPosition;
+}
+
 glm::mat4 Transform::getModel()
 {
 	return m_model;

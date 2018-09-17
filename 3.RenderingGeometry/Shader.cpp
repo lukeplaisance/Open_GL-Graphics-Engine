@@ -25,21 +25,6 @@ void Shader::UnBind()
 
 bool Shader::load(const char * filename, unsigned int type, bool isFile)
 {
-	////Load shader with file name
-	////Vertex Shader data
-	//vsSource = "Vertex";
-	////Fragment shader data
-	//fsSource = "fragment";
-
-	//unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	//unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-	////specify the code we are going to compile
-	//glShaderSource(vertexShader, 1, (const char**)&vsSource, 0);
-	//glCompileShader(vertexShader);
-
-	//glShaderSource(fragmentShader, 1, (const char**)&fsSource, 0);
-	//glCompileShader(fragmentShader);
 	return false;
 }
 
@@ -47,13 +32,16 @@ bool Shader::attach()
 {
 	m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
 	glShaderSource(m_vertexShader, 1, (const char**)&vsSource, 0);
 	glCompileShader(m_vertexShader);
 	glShaderSource(m_fragmentShader, 1, (const char**)&fsSource, 0);
 	glCompileShader(m_fragmentShader);
+
 	glAttachShader(m_program, m_vertexShader);
 	glAttachShader(m_program, m_fragmentShader);
 	glLinkProgram(m_program);
+
 	return true;
 }
 
@@ -72,16 +60,6 @@ void Shader::defaultLoad()
                             in vec4 vColor; \
                             out vec4 FragColor; \
                             void main() { FragColor = vColor; }";
-
-	/*unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-	//specify the code we are going to compile
-	glShaderSource(vertexShader, 1, (const char**)&vsSource, 0);
-	glCompileShader(vertexShader);
-
-	glShaderSource(fragmentShader, 1, (const char**)&fsSource, 0);
-	glCompileShader(fragmentShader);*/
 }
 
 unsigned int Shader::getUniform(const char * name)

@@ -35,10 +35,16 @@ void GUIApplication::shutdown()
 }
 
 
-
+glm::mat4 anothermat0;
+glm::mat4 anothermat1;
+glm::mat4 anothermat2;
 void GUIApplication::update(float dt)
 {
-	glm::vec3 eye = glm::vec3(0, -10, 20);
+	m_model = glm::mat4(1);
+	anothermat0 = glm::mat4(1);
+	anothermat1 = glm::mat4(1);
+	anothermat2 = glm::mat4(1);
+	glm::vec3 eye = glm::vec3(0, -10, 250);
 	m_view = glm::lookAt(eye, m_model[3].xyz(), glm::vec3(0, 1, 0));
 	m_projection = glm::perspective(glm::quarter_pi<float>(), 800 / (float)600, 0.1f, 1000.f);
 }
@@ -63,10 +69,25 @@ void GUIApplication::draw()
 		m_transform->Translate(glm::vec3(0, -1, 0));
 	}
 
+
 	shader->Bind();
-	int handle = shader->getUniform("ProjectionViewWorld");
-	glm::mat4 mvp = m_projection * m_view * m_transform->getModel();
-	glUniformMatrix4fv(handle, 1, GL_FALSE, &mvp[0][0]);
-	mesh->render();
+	int handle = shader->getUniform("ProjectionViewWorld");	
+	int yPos = -50;
+	int xMultiple = 0;
+	for (int x = 1; x <= 64; x++)
+	{
+		glm::mat4 new_model = glm::mat4(1);
+		new_model = glm::translate(new_model, glm::vec3(-75, 0, 0));
+		new_model *= glm::translate(anothermat0, glm::vec3(xMultiple * 20, yPos - 30, 0));
+		auto mvp = m_projection * m_view * new_model;
+		glUniformMatrix4fv(handle, 1, GL_FALSE, &mvp[0][0]);
+		mesh->render();
+		xMultiple++;
+		if (x % 8 == 0)
+		{
+			yPos += 20;
+			xMultiple = 0;
+		}
+	}
 	shader->UnBind();
 }

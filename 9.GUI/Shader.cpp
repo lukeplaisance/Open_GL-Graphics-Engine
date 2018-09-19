@@ -24,7 +24,7 @@ void Shader::UnBind()
 	glUseProgram(0);
 }
 
-bool Shader::load(const char * filename)
+bool Shader::load(const char * filename, Shader::SHADER_TYPE shadertype)
 {
 	errno_t err;
 	FILE *file;
@@ -36,6 +36,17 @@ bool Shader::load(const char * filename)
 		data.append(buf);
 	}
 	err = fclose(file);
+	const char* tmp = data.c_str();
+
+	switch (shadertype)
+	{
+		case Shader::SHADER_TYPE::FRAGMENT:
+			break;
+
+		case Shader::SHADER_TYPE::VERTEX:
+			break;
+	}
+
 	return true;
 }
 

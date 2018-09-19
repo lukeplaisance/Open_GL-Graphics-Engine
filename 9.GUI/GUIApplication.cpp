@@ -26,7 +26,8 @@ void GUIApplication::startup()
 	std::vector<MeshRenderer::Vertex> vertices = { A, B, C, D };
 	std::vector<unsigned int> indices = { 0, 1, 2, 2, 3, 0 };
 	mesh->initialize(indices, vertices);
-	shader->defaultLoad();
+	shader->load("ShaderSources/VERTEX.txt", Shader::SHADER_TYPE::VERTEX);
+	shader->load("ShaderSources/FRAGMENT.txt", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
 }
 

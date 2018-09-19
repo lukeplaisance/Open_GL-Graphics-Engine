@@ -4,11 +4,17 @@
 class Shader
 {
 public:
+	enum SHADER_TYPE
+	{
+		VERTEX = 0,
+		FRAGMENT = 1,
+	};
+
 	Shader();
 	~Shader();
 	void Bind();
 	void UnBind();
-	bool load(const char* filename);
+	bool load(const char* filename, SHADER_TYPE shadertype);
 	bool attach();
 	void defaultLoad();
 

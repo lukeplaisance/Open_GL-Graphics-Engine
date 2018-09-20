@@ -1,4 +1,4 @@
-#version 410\n \
-                            in vec4 vColor; \
-                            out vec4 FragColor; \
-                            void main() { FragColor = vColor; }
+#version 410
+in vec4 vColor;
+out vec4 FragColor;
+void main() { FragColor = vec4(1, 0, 0, 0); }

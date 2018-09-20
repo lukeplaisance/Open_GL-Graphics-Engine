@@ -28,22 +28,31 @@ bool Shader::load(const char * filename, Shader::SHADER_TYPE shadertype)
 {
 	errno_t err;
 	FILE *file;
-	std::string data;
 	err = fopen_s(&file, filename, "r");
 	char buf[500];
 	while (std::fgets(buf, sizeof buf, file))
 	{
-		data.append(buf);
+		switch (shadertype)
+		{
+			case Shader::SHADER_TYPE::VERTEX:
+				vsSourceString.append(buf);
+				break;
+
+			case Shader::SHADER_TYPE::FRAGMENT:
+				fsSourceString.append(buf);
+				break;
+		}
 	}
-	err = fclose(file);
-	const char* tmp = data.c_str();
+	fclose(file);
 
 	switch (shadertype)
 	{
 		case Shader::SHADER_TYPE::FRAGMENT:
+			fsSource = fsSourceString.c_str();
 			break;
 
 		case Shader::SHADER_TYPE::VERTEX:
+			vsSource = vsSourceString.c_str();
 			break;
 	}
 

@@ -1,5 +1,6 @@
 #include <glm/glm\glm.hpp>
 #include "gl_core_4_4.h"
+#include <string>
 #pragma once
 class Shader
 {
@@ -22,10 +23,14 @@ public:
 	unsigned int m_vertexShader;
 	unsigned int m_fragmentShader;
 
+	unsigned int m_program;
+
 	const char* vsSource;
 	const char* fsSource;
 
-	unsigned int m_program;
+private:
+	std::string vsSourceString;
+	std::string fsSourceString;
 };
 
 struct ShaderData

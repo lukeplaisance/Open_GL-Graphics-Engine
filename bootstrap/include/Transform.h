@@ -17,6 +17,7 @@ public:
 	glm::mat4 Scale(float size);
 	glm::vec3 getLocalPosition();
 	glm::vec3 getWorldPosition();
+	glm::mat4 SetModel(glm::mat4 mat);
 	glm::mat4 getModel();
 
 private:	
@@ -32,6 +33,7 @@ private:
 	0 0 1 0
 	0 0 0 1
 	*/
+	glm::mat4 m_world;
 	glm::mat4 m_model; //identity 
 	glm::vec3 m_worldPosition;//m_model[3]
 	glm::vec3 m_localPosition;//m_model[3]

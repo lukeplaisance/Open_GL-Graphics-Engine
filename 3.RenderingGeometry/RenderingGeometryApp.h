@@ -12,6 +12,8 @@ public:
 
 	MeshRenderer* mesh;
 	Shader* shader;
+	Transform* m_transform;
+	
 	unsigned int m_program;
 
 	glm::mat4 m_model;
@@ -20,6 +22,10 @@ public:
 
 	RenderingGeometryApp();
 	~RenderingGeometryApp();
+
+	std::vector<glm::vec4> GenHalfCircle(int np, int radius);
+	std::vector<glm::vec4> GenShpere(std::vector<glm::vec4> points, 
+							std::vector<glm::vec4> allPoints, int numRotations);
 
 	// Inherited via Application
 	virtual void startup() override;

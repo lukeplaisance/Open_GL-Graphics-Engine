@@ -51,22 +51,41 @@ glm::mat4 Transform::Translate(glm::vec3 move)
 
 glm::mat4 Transform::Rotate(float radians, glm::vec3 axis)
 {
-	auto cos = glm::cos(radians);
-	auto sin = glm::sin(radians);
-	auto rotation = glm::mat4(1);	
-	if (glm::length(axis) > 1)
-	{
-		return glm::mat4(0);
-	}
-	
-	
-		//z rotation 
-		//x   y    z
-		//cos -sin  0
-		//sin  cos  0
-		//0    0	1
-	return m_model;
+	auto c = cos(radians);
+	auto s = sin(radians);
 
+	glm::vec3 x_axis = glm::vec3(1, 0, 0);
+	glm::vec3 y_axis = glm::vec3(0, 1, 0);
+	glm::vec3 z_axis = glm::vec3(0, 0, 1);
+
+	if (axis == x_axis)
+	{
+		x_axis = glm::vec3(1, 0, 0);
+		y_axis = glm::vec3(0, c, s);
+		z_axis = glm::vec3(0, -s, c);
+	}
+
+	if (axis == y_axis)
+	{
+		x_axis = glm::vec3(c, 0, -s);
+		y_axis = glm::vec3(0, 1, 0);
+		z_axis = glm::vec3(s, 0, c);
+	}
+
+	if (axis == z_axis)
+	{
+		x_axis = glm::vec3(c, s, 0);
+		y_axis = glm::vec3(-s, c, 0);
+		z_axis = glm::vec3(0, 0, 1);
+	}
+
+	auto mat_rotation = glm::mat4(x_axis.x, y_axis.x, z_axis.x, 0,
+		x_axis.y, y_axis.y, z_axis.y, 0,
+		x_axis.z, y_axis.z, z_axis.z, 0,
+		0, 0, 0, 1);
+
+	m_world = m_world * mat_rotation;
+	return m_world;
 }
 
 glm::mat4 Transform::Scale(float size)
@@ -87,6 +106,11 @@ glm::vec3 Transform::getLocalPosition()
 glm::vec3 Transform::getWorldPosition()
 {
 	return m_worldPosition;
+}
+
+glm::mat4 Transform::SetModel(glm::mat4 mat)
+{
+	return m_model = mat;
 }
 
 glm::mat4 Transform::getModel()

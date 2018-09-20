@@ -13,6 +13,28 @@ RenderingGeometryApp::~RenderingGeometryApp()
 {
 }
 
+std::vector<glm::vec4> RenderingGeometryApp::GenHalfCircle(int np, int radius)
+{
+	std::vector<glm::vec4> points;
+	int angle = 3.14 / np;
+	for (float theta = 0; theta < 3.14; theta += angle)
+	{
+		points.push_back(glm::vec4(glm::cos(theta), glm::sin(theta), 0, 1));
+	}
+
+	return points;
+}
+
+std::vector<glm::vec4> RenderingGeometryApp::GenShpere(std::vector<glm::vec4> points, 
+											std::vector<glm::vec4> allPoints, int numRotations)
+{
+	for (int i = 0; i < numRotations; i++)
+	{
+		
+	}
+	return std::vector<glm::vec4>();
+}
+
 void RenderingGeometryApp::startup()
 {
 	// A----B

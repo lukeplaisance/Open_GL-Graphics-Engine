@@ -6,6 +6,7 @@
 
 RenderingGeometryApp::RenderingGeometryApp()
 {
+	m_transform = new Transform();
 }
 
 
@@ -16,27 +17,57 @@ RenderingGeometryApp::~RenderingGeometryApp()
 std::vector<glm::vec4> RenderingGeometryApp::GenHalfCircle(int np, int radius)
 {
 	std::vector<glm::vec4> points;
-	int angle = 3.14 / np;
+	float angle = 3.14 / np;
 	for (float theta = 0; theta < 3.14; theta += angle)
 	{
-		points.push_back(glm::vec4(glm::cos(theta), glm::sin(theta), 0, 1));
+		points.push_back(glm::vec4(glm::cos(theta) * radius, glm::sin(theta) * radius, 0, 1));
 	}
 
 	return points;
 }
 
-std::vector<glm::vec4> RenderingGeometryApp::GenShpere(std::vector<glm::vec4> points, 
-											std::vector<glm::vec4> allPoints, int numRotations)
+void RenderingGeometryApp::GenSphere(float np, float nm, float radius)
 {
-	for (int i = 0; i < numRotations; i++)
+	std::vector<glm::vec4> meshPoints;
+	std::vector<MeshRenderer::Vertex> vertices;
+	std::vector<unsigned int> indicies;
+
+	std::vector<glm::vec4> halfCircle = GenHalfCircle(np, radius);
+	halfCircle = RotatePoints(halfCircle, nm);
+
+	for (auto index : meshPoints)
 	{
-		
+		MeshRenderer::Vertex verts = { glm::vec4(1), glm::normalize(index) };
+		vertices.push_back(verts);
 	}
-	return std::vector<glm::vec4>();
+	mesh->initialize(indicies, vertices);
+
+}
+
+std::vector<glm::vec4> RenderingGeometryApp::RotatePoints(std::vector<glm::vec4> points, unsigned int nm)
+{
+	std::vector<glm::vec4> allPoints;
+	for (int i = 0; i < nm + 1; i++)
+	{
+		float sphereSlice = (3.14 / 2.0f);
+		float theta = i / sphereSlice;
+
+		for (int j = 0; j < points.size(); j++)
+		{
+			float newX = points[j].x;
+			float newY = points[j].y * cos(theta) + points[j].y * sin(theta);
+			float newZ = points[j].z * -sin(theta) + points[j].z * cos(theta);
+
+			allPoints.push_back(glm::vec4(newX, newY, newZ, 1));
+		}
+	}
+	return allPoints;
 }
 
 void RenderingGeometryApp::startup()
 {
+	shader = new Shader();
+	mesh = new MeshRenderer();
 	// A----B
 	// |\	|
 	// | \	|
@@ -44,19 +75,27 @@ void RenderingGeometryApp::startup()
 	//D|---\|C
 	//
 	//
-	mesh = new MeshRenderer();
-	shader = new Shader();
-
-	MeshRenderer::Vertex A = { glm::vec4(-10, 10, 0, 1), glm::vec4(1, 0, 0, 1) };
-	MeshRenderer::Vertex B = { glm::vec4(10, 10, 0, 1), glm::vec4(0, 1, 0, 1) };
-	MeshRenderer::Vertex C = { glm::vec4(10, -10, 0, 1), glm::vec4(0, 0, 1, 1) };
-	MeshRenderer::Vertex D = { glm::vec4(-10, -10, 0, 1), glm::vec4(0, 0, 0, 1) };
-	std::vector<MeshRenderer::Vertex> vertices = { A, B, C, D };
-	std::vector<unsigned int> indices = { 0, 1, 2, 2, 3, 0 };
-	mesh->initialize(indices, vertices);
 	shader->defaultLoad();
 	shader->attach();
-	};
+	std::vector<glm::vec4> points = GenHalfCircle(10, 5);
+	points = RotatePoints(points, 10);
+	std::vector<unsigned int> indices;
+	for (int i = 0; i < points.size(); i++)
+	{
+		indices.push_back(i);
+	}
+
+	std::vector<MeshRenderer::Vertex> vertices;
+	MeshRenderer::Vertex vertex;
+
+	for (glm::vec4 point : points)
+	{
+		vertex = {point, glm::vec4(1, 1, 1, 1) };
+		vertices.push_back(vertex);
+	}
+	mesh->initialize(indices, vertices);
+	
+};
 
 void RenderingGeometryApp::shutdown()
 {

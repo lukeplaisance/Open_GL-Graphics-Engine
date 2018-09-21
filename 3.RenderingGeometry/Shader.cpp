@@ -1,7 +1,7 @@
 #include "Shader.h"
 #include <assert.h>
-
-
+#include <string>
+#include <stdio.h>
 
 Shader::Shader()
 {
@@ -23,9 +23,39 @@ void Shader::UnBind()
 	glUseProgram(0);
 }
 
-bool Shader::load(const char * filename, unsigned int type, bool isFile)
+bool Shader::load(const char * filename, Shader::SHADER_TYPE shadertype)
 {
-	return false;
+	errno_t err;
+	FILE *file;
+	err = fopen_s(&file, filename, "r");
+	char buf[500];
+	while (std::fgets(buf, sizeof buf, file))
+	{
+		switch (shadertype)
+		{
+		case Shader::SHADER_TYPE::VERTEX:
+			vsSourceString.append(buf);
+			break;
+
+		case Shader::SHADER_TYPE::FRAGMENT:
+			fsSourceString.append(buf);
+			break;
+		}
+	}
+	fclose(file);
+
+	switch (shadertype)
+	{
+	case Shader::SHADER_TYPE::FRAGMENT:
+		fsSource = fsSourceString.c_str();
+		break;
+
+	case Shader::SHADER_TYPE::VERTEX:
+		vsSource = vsSourceString.c_str();
+		break;
+	}
+
+	return true;
 }
 
 bool Shader::attach()

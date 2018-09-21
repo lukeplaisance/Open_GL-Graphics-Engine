@@ -24,8 +24,11 @@ public:
 	~RenderingGeometryApp();
 
 	std::vector<glm::vec4> GenHalfCircle(int np, int radius);
-	std::vector<glm::vec4> GenShpere(std::vector<glm::vec4> points, 
-							std::vector<glm::vec4> allPoints, int numRotations);
+
+	void GenSphere(float np, float nm, float radius);
+
+	std::vector<glm::vec4> RotatePoints(std::vector<glm::vec4> points, 
+									unsigned int numMeridians);
 
 	// Inherited via Application
 	virtual void startup() override;

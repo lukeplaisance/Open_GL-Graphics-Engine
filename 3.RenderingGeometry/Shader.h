@@ -1,14 +1,21 @@
 #include <glm/glm\glm.hpp>
 #include "gl_core_4_4.h"
+#include <string>
 #pragma once
 class Shader
 {
 public:
+	enum SHADER_TYPE
+	{
+		VERTEX = 0,
+		FRAGMENT = 1,
+	};
+
 	Shader();
 	~Shader();
 	void Bind();
 	void UnBind();
-	bool load(const char* filename, unsigned int type, bool isFile = true);
+	bool load(const char* filename, SHADER_TYPE shadertype);
 	bool attach();
 	void defaultLoad();
 
@@ -16,10 +23,14 @@ public:
 	unsigned int m_vertexShader;
 	unsigned int m_fragmentShader;
 
+	unsigned int m_program;
+
 	const char* vsSource;
 	const char* fsSource;
 
-	unsigned int m_program;
+private:
+	std::string vsSourceString;
+	std::string fsSourceString;
 };
 
 struct ShaderData
@@ -27,6 +38,5 @@ struct ShaderData
 	Shader* shader;
 	char* source;
 	unsigned type;
-	bool isFile;
 };
 

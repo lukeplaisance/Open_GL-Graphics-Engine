@@ -22,11 +22,18 @@ int MeshRenderer::initialize(std::vector<unsigned>& indices, std::vector<Vertex>
 
 int MeshRenderer::render()
 {
+	
+
 	glBindVertexArray(m_vao);
 
 	//set the draw mode to render the front and back of our geometry
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPrimitiveRestartIndex(0xFFFF);
+	glEnable(GL_PRIMITIVE_RESTART);
+
 	glDrawElements(GL_TRIANGLE_STRIP, m_indices.size(), GL_UNSIGNED_INT, 0);
+	glDisable(GL_PRIMITIVE_RESTART);
+
 
 	//glUseProgram(0);
 	glBindVertexArray(0);

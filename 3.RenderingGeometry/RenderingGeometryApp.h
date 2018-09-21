@@ -25,7 +25,7 @@ public:
 
 	std::vector<glm::vec4> GenHalfCircle(int np, int radius);
 
-	void GenSphere(float np, float nm, float radius);
+	std::vector<unsigned int> GenIndices(int np, int nm);
 
 	std::vector<glm::vec4> RotatePoints(std::vector<glm::vec4> points, 
 									unsigned int numMeridians);

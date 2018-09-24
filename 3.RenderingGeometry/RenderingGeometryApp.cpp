@@ -69,9 +69,9 @@ std::vector<glm::vec4> RenderingGeometryApp::RotatePoints(std::vector<glm::vec4>
 
 		for (int j = 0; j < points.size(); j++)
 		{
-			float newX = points[j].x * cos(theta) + points[j].x * -sin(theta);
-			float newY = points[j].y;
-			float newZ = points[j].z * sin(theta) + points[j].z * cos(theta);
+			float newX = points[j].x;
+			float newY = points[j].y * cos(theta) + points[j].z * sin(theta);
+			float newZ = points[j].z * cos(theta) + points[j].y * -sin(theta);
 
 			allPoints.push_back(glm::vec4(newX, newY, newZ, 1));
 			allPoints[i] = glm::round(allPoints[i]);

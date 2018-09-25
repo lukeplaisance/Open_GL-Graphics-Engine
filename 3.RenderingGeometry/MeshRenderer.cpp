@@ -13,6 +13,9 @@ MeshRenderer::~MeshRenderer()
 
 int MeshRenderer::initialize(std::vector<unsigned>& indices, std::vector<Vertex>& vertices)
 {
+	m_vbo = 0;
+	m_vao = 0;
+	m_ibo = 0;
 	m_indices = indices;
 	m_vertices = vertices;
 	create_buffers();

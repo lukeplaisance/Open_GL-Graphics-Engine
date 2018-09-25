@@ -25,10 +25,16 @@ public:
 
 	std::vector<glm::vec4> GenHalfCircle(int np, int radius);
 
-	std::vector<unsigned int> GenIndices(int np, int nm);
+	void GenSphere(int radius, int np, int nm);
+
+	std::vector<unsigned int> GenIndices(unsigned int np, unsigned int nm);
 
 	std::vector<glm::vec4> RotatePoints(std::vector<glm::vec4> points, 
 									unsigned int numMeridians);
+
+	std::vector<MeshRenderer::Vertex> GenCube(std::vector<MeshRenderer::Vertex> vertices);
+
+	std::vector<unsigned int> genCubeIndices();
 
 	// Inherited via Application
 	virtual void startup() override;

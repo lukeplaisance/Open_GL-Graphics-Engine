@@ -159,10 +159,10 @@ void RenderingGeometryApp::startup()
 	shader->load("ShaderSources/FRAGMENT.txt", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
 
-	//GenSphere(5, 100, 100);
-	std::vector<MeshRenderer::Vertex> vertices = GenCube(vertices);
+	GenSphere(5, 100, 100);
+	/*std::vector<MeshRenderer::Vertex> vertices = GenCube(vertices);
 	std::vector<unsigned int> indices = genCubeIndices();
-	mesh->initialize(indices, vertices);
+	mesh->initialize(indices, vertices);*/
 	
 };
 
@@ -179,9 +179,10 @@ void RenderingGeometryApp::update(float dt)
 	float angle = glm::cos(rt*0.001f) * dt;
 	rot = glm::rotate(glm::mat4(1), angle, glm::vec3(0, 1, 0));
 	trans = glm::translate(glm::mat4(1), glm::vec3(0, 0, 0));
-	m_view = glm::lookAt(glm::vec3(0, -10, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	m_view = glm::lookAt(glm::vec3(10, -10, -10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	m_projection = glm::perspective(glm::quarter_pi<float>(), 800 / (float)600, 0.1f, 1000.f);
 	m_model = glm::mat4(1) * trans * rot;
+	m_model = glm::mat4(1);
 }
 
 void RenderingGeometryApp::draw()

@@ -30,7 +30,7 @@ public:
 	std::vector<unsigned int> GenIndices(unsigned int np, unsigned int nm);
 
 	std::vector<glm::vec4> RotatePoints(std::vector<glm::vec4> points, 
-									unsigned int numMeridians);
+										unsigned int numMeridians);
 
 	std::vector<MeshRenderer::Vertex> GenCube(std::vector<MeshRenderer::Vertex> vertices);
 

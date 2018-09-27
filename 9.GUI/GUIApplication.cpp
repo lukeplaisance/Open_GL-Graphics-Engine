@@ -26,8 +26,8 @@ void GUIApplication::startup()
 	std::vector<MeshRenderer::Vertex> vertices = { A, B, C, D };
 	std::vector<unsigned int> indices = { 0, 1, 2, 2, 3, 0 };
 	mesh->initialize(indices, vertices);
-	shader->load("ShaderSources/VERTEX.txt", Shader::SHADER_TYPE::VERTEX);
-	shader->load("ShaderSources/FRAGMENT.txt", Shader::SHADER_TYPE::FRAGMENT);
+	shader->defaultLoad();
+	shader->defaultLoad();
 	shader->attach();
 }
 
@@ -69,13 +69,13 @@ void GUIApplication::draw()
 
 	shader->Bind();
 	int handle = shader->getUniform("ProjectionViewWorld");	
-	int yPos = -50;
+	int yPos = 50;
 	int xPos = 0;
-	for (int x = 1; x <= 64; x++)
+	for (int x = 1; x <= 1; x++)
 	{
 		glm::mat4 new_model = glm::mat4(1);
 
-		new_model = glm::translate(new_model, glm::vec3(-75, 0, 0));
+		//new_model = glm::translate(new_model, glm::vec3(-75, 0, 0));
 		new_model *= glm::translate(anothermat0, glm::vec3(xPos * 20, yPos - 30, 0));
 		
 		auto mvp = m_projection * m_view * new_model;

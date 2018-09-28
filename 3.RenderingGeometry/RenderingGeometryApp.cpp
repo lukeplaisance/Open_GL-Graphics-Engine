@@ -45,7 +45,7 @@ void RenderingGeometryApp::GenSphere(int radius, int np, int nm)
 
 	for (glm::vec4 point : points)
 	{
-		vertex = { point, glm::vec4(1) };
+		vertex = { point, glm::vec4(.5, .5, .5, 1) };
 		vertices.push_back(vertex);
 	}
 	mesh->initialize(indices, vertices);
@@ -155,8 +155,8 @@ void RenderingGeometryApp::startup()
 	//
 	//
 	//shader->defaultLoad();
-	shader->load("ShaderSources/VERTEX.txt", Shader::SHADER_TYPE::VERTEX);
-	shader->load("ShaderSources/FRAGMENT.txt", Shader::SHADER_TYPE::FRAGMENT);
+	shader->load("ShaderSources/VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
+	shader->load("ShaderSources/FRAGMENT.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
 
 	GenSphere(5, 100, 100);
@@ -182,15 +182,29 @@ void RenderingGeometryApp::update(float dt)
 	m_view = glm::lookAt(glm::vec3(10, -10, -10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	m_projection = glm::perspective(glm::quarter_pi<float>(), 800 / (float)600, 0.1f, 1000.f);
 	m_model = glm::mat4(1) * trans * rot;
-	m_model = glm::mat4(1);
+	//m_model = glm::mat4(1);
 }
 
 void RenderingGeometryApp::draw()
 {
 	shader->Bind();
 	int handle = shader->getUniform("ProjectionViewWorld");
+	int lightPosHandle = shader->getUniform("lightPos");
+	int lightColorHandle = shader->getUniform("lightColor");
+	int lightDirHandle = shader->getUniform("lightDir");
+	int cameraPosHandle = shader->getUniform("cameraPos");
+
 	glm::mat4 mvp = m_projection * m_view * m_model;
 	glUniformMatrix4fv(handle, 1, GL_FALSE, &mvp[0][0]);
+	auto pos = glm::vec3(1, 0, 0);
+	auto col = glm::vec3(1, .5, 0);
+	auto dir = glm::vec3(1, 1, 0);
+	auto cameraPos = glm::vec3(10, -10, -10);
+
+	glUniform3fv(lightPosHandle, 1, &pos[0]);
+	glUniform3fv(lightColorHandle, 1, &col[0]);
+	glUniform3fv(lightDirHandle, 1, &dir[0]);
+	glUniform3fv(cameraPosHandle, 1, &cameraPos[0]);
 	mesh->render();
 	shader->UnBind();
 }

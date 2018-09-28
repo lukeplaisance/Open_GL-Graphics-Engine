@@ -72,7 +72,20 @@ bool Shader::attach()
 	glAttachShader(m_program, m_fragmentShader);
 	glLinkProgram(m_program);
 
-	return true;
+	int success = GL_FALSE;
+	//check that it compiled and linked correctly
+	glGetProgramiv(m_program, GL_LINK_STATUS, &success);
+	if (success == GL_FALSE)
+	{
+		int infoLogLength = 0;
+		glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &infoLogLength);
+		char* infoLog = new char[infoLogLength + 1];
+		glGetProgramInfoLog(m_program, infoLogLength, 0, infoLog);
+		printf("Error: Failed to link shader program!\n");
+		printf("%s\n", infoLog);
+		delete[] infoLog;
+	}
+		return true;
 }
 
 void Shader::defaultLoad()

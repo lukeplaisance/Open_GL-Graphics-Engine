@@ -25,7 +25,6 @@ std::vector<glm::vec4> RenderingGeometryApp::GenHalfCircle(int np, int radius)
 		float theta = i * angle;
 
 		points.push_back(glm::vec4(glm::cos(theta) * radius, glm::sin(theta) * radius, 0, 1));
-		//points[i] = glm::round(points[i]);
 	}
 	return points;
 }
@@ -91,7 +90,6 @@ std::vector<glm::vec4> RenderingGeometryApp::RotatePoints(std::vector<glm::vec4>
 			float newZ = points[j].z * cos(theta) + points[j].y * sin(theta);
 
 			allPoints.push_back(glm::vec4(newX, newY, newZ, 1));
-			//allPoints[i] = glm::round(allPoints[i]);
 		}
 	}
 	return allPoints;
@@ -196,7 +194,7 @@ void RenderingGeometryApp::draw()
 
 	glm::mat4 mvp = m_projection * m_view * m_model;
 	glUniformMatrix4fv(handle, 1, GL_FALSE, &mvp[0][0]);
-	auto pos = glm::vec3(1, 0, 0);
+	auto pos = glm::vec3(0, 1, 0);
 	auto col = glm::vec3(1, .5, 0);
 	auto dir = glm::vec3(1, 1, 0);
 	auto cameraPos = glm::vec3(10, -10, -10);

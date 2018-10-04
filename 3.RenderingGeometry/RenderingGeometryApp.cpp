@@ -154,7 +154,7 @@ void RenderingGeometryApp::startup()
 	//
 	//shader->defaultLoad();
 	shader->load("ShaderSources/VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
-	shader->load("ShaderSources/FRAGMENT.frag", Shader::SHADER_TYPE::FRAGMENT);
+	shader->load("ShaderSources/BLINN_PHONG_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
 
 	GenSphere(5, 100, 100);
@@ -194,9 +194,9 @@ void RenderingGeometryApp::draw()
 
 	glm::mat4 mvp = m_projection * m_view * m_model;
 	glUniformMatrix4fv(handle, 1, GL_FALSE, &mvp[0][0]);
-	auto pos = glm::vec3(0, 1, 0);
+	auto pos = glm::vec3(0, 0, 0);
 	auto col = glm::vec3(1, .5, 0);
-	auto dir = glm::vec3(1, 1, 0);
+	auto dir = glm::vec3(0, 1, 0);
 	auto cameraPos = glm::vec3(10, -10, -10);
 
 	glUniform3fv(lightPosHandle, 1, &pos[0]);

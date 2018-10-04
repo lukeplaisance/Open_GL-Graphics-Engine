@@ -13,7 +13,7 @@ void main()
 	
 	//normalize the surface position and the light direction
 	vec3 surfaceNormal = normalize(surfacePos);
-	vec3 Ldn = normalize(lightDir);
+	vec3 Ldn = normalize(lightDir + lightPos);
 	
 	//ambient light
 	vec4 ambient = vColor * vec4(lightColor, 1);

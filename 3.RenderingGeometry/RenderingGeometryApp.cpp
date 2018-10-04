@@ -1,6 +1,8 @@
 #include "RenderingGeometryApp.h"
 #include <gl_core_4_4.h>
 #include <glm/glm/glm.hpp>
+#include "Geometry.h"
+#include <GLFW/glfw3.h>
 
 
 
@@ -144,6 +146,7 @@ std::vector<unsigned int> RenderingGeometryApp::genCubeIndices()
 void RenderingGeometryApp::startup()
 {
 	shader = new Shader();
+	Geometry * geo = new Geometry();
 	
 	// A----B
 	// |\	|
@@ -156,12 +159,12 @@ void RenderingGeometryApp::startup()
 	shader->load("ShaderSources/VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
 	shader->load("ShaderSources/BLINN_PHONG_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
+	
 
 	GenSphere(5, 100, 100);
 	/*std::vector<MeshRenderer::Vertex> vertices = GenCube(vertices);
 	std::vector<unsigned int> indices = genCubeIndices();
 	mesh->initialize(indices, vertices);*/
-	
 };
 
 void RenderingGeometryApp::shutdown()

@@ -35,7 +35,7 @@ glm::mat4 Camera::SetPerspective(float fieldOfView, float aspectRatio, float nea
 	m_projectionTransform[1].y = 1 / tan(fieldOfView / 2);
 	m_projectionTransform[2].z = -((far + near) / (far - near));
 	m_projectionTransform[2].w = -1;
-	m_projectionTransform[3].z = ((2 * far * near) / (far - near));
+	m_projectionTransform[3].z = -((2 * far * near) / (far - near));
 	return m_projectionTransform;
 }
 

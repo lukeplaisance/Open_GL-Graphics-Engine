@@ -1,5 +1,5 @@
 #pragma once
-#include <glm/glm.hpp>
+#include <glm/glm/glm.hpp>
 #include <glm/glm/ext.hpp>
 
 class Camera
@@ -18,9 +18,9 @@ public:
 	virtual ~Camera();
 
 	virtual void Update(float dt) = 0;
-	void SetPerspective(float fieldOfView, float aspectRatio, float near, float far);
-	void SetOrtho(float left, float right, float bottom, float top, float near, float far);
-	void SetLookAt(glm::vec3 from, glm::vec3 to, glm::vec3 up);
+	glm::mat4 SetPerspective(float fieldOfView, float aspectRatio, float near, float far);
+	glm::mat4 SetOrtho(float left, float right, float bottom, float top, float near, float far);
+	void SetLookAt(glm::vec3 from, glm::vec3 to);
 	void SetPosition(glm::vec3 position);
 	glm::mat4 getWorldTransform();
 	glm::mat4 getView();

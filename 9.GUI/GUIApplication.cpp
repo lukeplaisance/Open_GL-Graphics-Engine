@@ -6,9 +6,9 @@
 
 GUIApplication::GUIApplication()
 {
-	m_model = glm::mat4(1);
 	mesh = new MeshRenderer();
 	m_transform = new Transform();
+	m_model = glm::mat4(1);
 }
 
 GUIApplication::~GUIApplication()
@@ -101,29 +101,29 @@ std::vector<MeshRenderer::Vertex> GUIApplication::GenCube(std::vector<MeshRender
 	{
 		//front
 		{ glm::vec4(0.0, 1.0, 1.0, 1.0), glm::vec4(1, 0, 0, 1) },
-	{ glm::vec4(1.0, 1.0, 1.0, 1.0), glm::vec4(0, 1, 0, 1) },
-	{ glm::vec4(1.0, 0.0, 1.0, 1.0), glm::vec4(0, 0, 1, 1) },
-	{ glm::vec4(0.0, 0.0, 1.0, 1.0), glm::vec4(1, 1, 0, 1) },
+		{ glm::vec4(1.0, 1.0, 1.0, 1.0), glm::vec4(0, 1, 0, 1) },
+		{ glm::vec4(1.0, 0.0, 1.0, 1.0), glm::vec4(0, 0, 1, 1) },
+		{ glm::vec4(0.0, 0.0, 1.0, 1.0), glm::vec4(1, 1, 0, 1) },
 
-	//bot
-	{ glm::vec4(0.0, 0.0, 0.0, 1.0), glm::vec4(1, 0, 0, 1) },
-	{ glm::vec4(1.0, 0.0, 0.0, 1.0), glm::vec4(0, 1, 1, 1) },
+		//bot
+		{ glm::vec4(0.0, 0.0, 0.0, 1.0), glm::vec4(1, 0, 0, 1) },
+		{ glm::vec4(1.0, 0.0, 0.0, 1.0), glm::vec4(0, 1, 1, 1) },
 
-	//back
-	{ glm::vec4(1.0, 1.0, 0.0, 1.0), glm::vec4(1, 1, 1, 1) },
-	{ glm::vec4(0.0, 1.0, 0.0, 1.0), glm::vec4(1, 0, 0, 1) },
+		//back
+		{ glm::vec4(1.0, 1.0, 0.0, 1.0), glm::vec4(1, 1, 1, 1) },
+		{ glm::vec4(0.0, 1.0, 0.0, 1.0), glm::vec4(1, 0, 0, 1) },
 
-	//top
-	{ glm::vec4(0.0, 1.0, 1.0, 1.0), glm::vec4(1, 1, 1, 1) },
-	{ glm::vec4(1.0, 1.0, 1.0, 1.0), glm::vec4(1, 0, 1, 1) },
+		//top
+		{ glm::vec4(0.0, 1.0, 1.0, 1.0), glm::vec4(1, 1, 1, 1) },
+		{ glm::vec4(1.0, 1.0, 1.0, 1.0), glm::vec4(1, 0, 1, 1) },
 
-	//right
-	{ glm::vec4(1.0, 1.0, 0.0, 1.0), glm::vec4(1, 0, 1, 1) },
-	{ glm::vec4(1.0, 0.0, 0.0, 1.0), glm::vec4(1, 0, 1, 1) },
+		//right
+		{ glm::vec4(1.0, 1.0, 0.0, 1.0), glm::vec4(1, 0, 1, 1) },
+		{ glm::vec4(1.0, 0.0, 0.0, 1.0), glm::vec4(1, 0, 1, 1) },
 
-	//left
-	{ glm::vec4(1.0, 1.0, 0.0, 1.0), glm::vec4(1, 0, 1, 1) },
-	{ glm::vec4(0.0, 0.0, 0.0, 1.0), glm::vec4(1, 0, 0, 1) }
+		//left
+		{ glm::vec4(1.0, 1.0, 0.0, 1.0), glm::vec4(1, 0, 1, 1) },
+		{ glm::vec4(0.0, 0.0, 0.0, 1.0), glm::vec4(1, 0, 0, 1) }
 	};
 	return c_verts;
 }
@@ -131,7 +131,8 @@ std::vector<MeshRenderer::Vertex> GUIApplication::GenCube(std::vector<MeshRender
 std::vector<unsigned int> GUIApplication::genCubeIndices()
 {
 	std::vector<unsigned int> indices =
-	{ 0,1,2,2,3,0,//front
+	{	
+		0,1,2,2,3,0,//front
 		3,2,4,4,5,2,//Bot
 		4,5,6,6,7,4,//Back
 		6,7,8,8,9,6,//Top
@@ -180,7 +181,7 @@ void GUIApplication::update(float dt)
 	m_view = glm::lookAt(glm::vec3(10, -10, -10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	m_projection = glm::perspective(glm::quarter_pi<float>(), 800 / (float)600, 0.1f, 1000.f);
 	m_model = glm::mat4(1) * trans * rot;
-	//m_model = glm::mat4(1);
+	m_model = m_transform->getModel();
 }
 
 void GUIApplication::draw()

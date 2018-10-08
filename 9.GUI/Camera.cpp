@@ -39,17 +39,28 @@ glm::mat4 Camera::SetPerspective(float fieldOfView, float aspectRatio, float nea
 	return m_projectionTransform;
 }
 
-void Camera::SetLookAt(glm::vec3 from, glm::vec3 to, glm::vec3 up)
+void Camera::SetLookAt(glm::vec3 from, glm::vec3 to)
 {
-	float cam_radius = 10.0f;
-	float camX = sin(glfwGetTime()) * cam_radius;
-	float camZ = cos(glfwGetTime()) * cam_radius;
+	glm::vec3 tmp = glm::vec3(0, 1, 0);
+	glm::vec3 forward = glm::normalize(from - to);
+	glm::vec3 right = glm::cross(glm::normalize(tmp), forward);
+	glm::vec3 up = glm::cross(forward, right);
 
-	from = glm::vec3(camX, 0, camZ);
-	to = glm::vec3(0, 0, 0);
-	up = glm::vec3(0, 1, 0);
+	m_viewTransform[0][0] = right.x;
+	m_viewTransform[0][1] = right.y;
+	m_viewTransform[0][2] = right.z;
 
-	m_viewTransform = glm::lookAt(glm::vec3(10, 10, 10), glm::vec3(0), glm::vec3(0, 1, 0));
+	m_viewTransform[1][0] = up.x;
+	m_viewTransform[1][1] = up.y;
+	m_viewTransform[1][2] = up.z;
+
+	m_viewTransform[2][0] = forward.x;
+	m_viewTransform[2][1] = forward.y;
+	m_viewTransform[2][2] = forward.z;
+
+	m_viewTransform[3][0] = from.x;
+	m_viewTransform[3][1] = from.y;
+	m_viewTransform[3][2] = from.z;
 }
 
 void Camera::SetPosition(glm::vec3 position)

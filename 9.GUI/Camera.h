@@ -20,7 +20,7 @@ public:
 	virtual void Update(float dt) = 0;
 	glm::mat4 SetPerspective(float fieldOfView, float aspectRatio, float near, float far);
 	glm::mat4 SetOrtho(float left, float right, float bottom, float top, float near, float far);
-	void SetLookAt(glm::vec3 from, glm::vec3 to, glm::vec3 up);
+	void SetLookAt(glm::vec3 from, glm::vec3 to);
 	void SetPosition(glm::vec3 position);
 	glm::mat4 getWorldTransform();
 	glm::mat4 getView();

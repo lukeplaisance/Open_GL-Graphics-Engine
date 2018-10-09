@@ -6,11 +6,11 @@
 
 struct Transform;
 
-class IntroductionApp :	public Application
+class CameraApp :	public Application
 {
 public:
-	IntroductionApp();
-	~IntroductionApp();
+	CameraApp();
+	~CameraApp();
 	Transform* modelTransform;
 	glm::mat4 model;
 	// Inherited via Application

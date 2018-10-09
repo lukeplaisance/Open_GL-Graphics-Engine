@@ -35,7 +35,7 @@ glm::mat4 Camera::SetPerspective(float fieldOfView, float aspectRatio, float nea
 	m_projectionTransform[1].y = 1 / tan(fieldOfView / 2);
 	m_projectionTransform[2].z = -((far + near) / (far - near));
 	m_projectionTransform[2].w = -1;
-	m_projectionTransform[3].z = ((2 * far * near) / (far - near));
+	m_projectionTransform[3].z = -((2 * far * near) / (far - near));
 	return m_projectionTransform;
 }
 
@@ -46,22 +46,18 @@ void Camera::SetLookAt(glm::vec3 from, glm::vec3 to)
 	glm::vec3 right = glm::cross(glm::normalize(tmp), forward);
 	glm::vec3 up = glm::cross(forward, right);
 
-	//right vector
 	m_viewTransform[0][0] = right.x;
 	m_viewTransform[0][1] = right.y;
 	m_viewTransform[0][2] = right.z;
 
-	//up vector
 	m_viewTransform[1][0] = up.x;
 	m_viewTransform[1][1] = up.y;
 	m_viewTransform[1][2] = up.z;
 
-	//forward vector
 	m_viewTransform[2][0] = forward.x;
 	m_viewTransform[2][1] = forward.y;
 	m_viewTransform[2][2] = forward.z;
 
-	//from point
 	m_viewTransform[3][0] = from.x;
 	m_viewTransform[3][1] = from.y;
 	m_viewTransform[3][2] = from.z;

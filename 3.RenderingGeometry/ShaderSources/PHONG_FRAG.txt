@@ -9,17 +9,24 @@ uniform vec3 cameraPos;
 
 void main() 
 {
-	vec3 Ldn = normalize(lightDir);
 	vec3 surfacePos = vPosition.xyz;
-	surfacePos = normalize(surfacePos);
-	float lambert = max(0, dot(surfacePos, -Ldn));
 	
-	vec3 reflectedRay = reflect(Ldn, surfacePos);
-	vec3 viewRay = normalize(cameraPos - surfacePos);
+	//normalize the light direction and the surface position
+	vec3 Ldn = normalize(lightDir + lightPos);
+	vec3 surfaceNormal = normalize(surfacePos);
 	
+	//ambient
 	vec4 ambient = vColor * vec4(lightColor, 1);
+	
+	//diffuse
+	float lambert = max(0, dot(surfaceNormal, -Ldn));
 	vec4 diffuse = vColor * vec4(lightColor, 1) * lambert;
+	
+	//specular
+	vec3 reflectedRay = reflect(Ldn, surfaceNormal);
+	vec3 viewRay = normalize(cameraPos - surfaceNormal);
 	float specularPower = pow(max(0, dot(reflectedRay, viewRay)), 30.0f);
 	vec4 specular = (vColor * vec4(lightColor, 1) * specularPower); 
+	
 	FragColor = ambient + diffuse + specular;
 }

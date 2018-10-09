@@ -157,7 +157,7 @@ void RenderingGeometryApp::startup()
 	//
 	//shader->defaultLoad();
 	shader->load("ShaderSources/VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
-	shader->load("ShaderSources/BLINN_PHONG_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
+	shader->load("ShaderSources/BLINN_SHADER_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
 	
 
@@ -183,7 +183,7 @@ void RenderingGeometryApp::update(float dt)
 	m_view = glm::lookAt(glm::vec3(10, -10, -10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	m_projection = glm::perspective(glm::quarter_pi<float>(), 800 / (float)600, 0.1f, 1000.f);
 	m_model = glm::mat4(1) * trans * rot;
-	//m_model = glm::mat4(1);
+	m_model = glm::mat4(1);
 }
 
 void RenderingGeometryApp::draw()

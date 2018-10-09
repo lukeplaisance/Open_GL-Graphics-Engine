@@ -24,7 +24,7 @@ void main()
 	
 	//specular light
 	
-	//calculate the view vector and the reflection vector
+	//calculate the angle between the half way vector and the surface normal
 	vec3 V = normalize(cameraPos - surfaceNormal);
 	vec3 H = (V + -Ldn);
 	float viewDot = dot(H, surfaceNormal);

@@ -13,7 +13,6 @@ public:
 	{
 		glm::vec4 m_position;
 		glm::vec4 m_color;
-		glm::vec2 m_texCood;
 	};
 	
 	int initialize(std::vector<unsigned int>& indices, std::vector<Vertex>& vertices);

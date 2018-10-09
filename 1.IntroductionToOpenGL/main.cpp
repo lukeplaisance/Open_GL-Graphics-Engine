@@ -8,7 +8,7 @@
 
 int main()
 {
-	auto * app = new IntroductionApp();
+	auto * app = new CameraApp();
 	app->run("Intro to OpenGL", 800, 600, false);
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "FlyCamera.h"
 //IntroApp : Application{
 //void startup(){printf("welcome to jurassic application");}
 //}
@@ -18,6 +19,7 @@ protected:
 	virtual void update(float dt) = 0;
 	virtual void draw() = 0;
 	GLFWwindow* m_window;
+	FlyCamera* cam;
 	bool m_gameover;
 	float m_clearColor[4];
 	float m_runningTime;

@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Application.h" />
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\FlyCamera.h" />
     <ClInclude Include="include\Gizmos.h" />
     <ClInclude Include="include\gl_core_4_4.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -32,6 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\FlyCamera.cpp" />
     <ClCompile Include="src\Gizmos.cpp" />
     <ClCompile Include="src\gl_core_4_4.c" />
     <ClCompile Include="src\imgui.cpp" />

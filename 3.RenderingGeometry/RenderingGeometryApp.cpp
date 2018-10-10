@@ -42,9 +42,20 @@ void RenderingGeometryApp::GenSphere(int radius, int np, int nm)
 
 	indices = GenIndices(nm, np);
 
-	for (glm::vec4 point : points)
+	std::vector<glm::vec2> UV;
+	float V = 0;
+	for (int i = 0; i<2; i++)
 	{
-		vertex = { point, glm::vec4(.5, .5, .5, 1) };
+		for (int j = 0; j < points.size() / 2; j++)
+		{
+			UV.push_back(glm::vec2((float)j / (points.size() / 2), V));
+		}
+		V++;
+	}
+
+	for(int x = 0; x < points.size(); x++)
+	{
+		vertex = { points[x], glm::vec4(.5, .5, .5, 1), UV[x]};
 		vertices.push_back(vertex);
 	}
 	mesh->initialize(indices, vertices);
@@ -144,6 +155,7 @@ std::vector<unsigned int> RenderingGeometryApp::genCubeIndices()
 void RenderingGeometryApp::startup()
 {
 	shader = new Shader();
+	texture = new Texture();
 	
 	// A----B
 	// |\	|
@@ -156,6 +168,9 @@ void RenderingGeometryApp::startup()
 	shader->load("ShaderSources/VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
 	shader->load("ShaderSources/BLINN_PHONG_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
+
+	texture->load("bin/Textures/earth.png");
+
 
 	GenSphere(5, 100, 100);
 	/*std::vector<MeshRenderer::Vertex> vertices = GenCube(vertices);

@@ -4,6 +4,7 @@
 #include <Transform.h>
 #include "MeshRenderer.h"
 #include "Shader.h"
+#include "Texture.h"
 
 
 class RenderingGeometryApp :public Application
@@ -13,6 +14,7 @@ public:
 	MeshRenderer* mesh;
 	Shader* shader;
 	Transform* m_transform;
+	Texture* texture;
 	
 	unsigned int m_program;
 

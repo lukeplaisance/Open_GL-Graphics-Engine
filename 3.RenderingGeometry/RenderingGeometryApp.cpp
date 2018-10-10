@@ -42,21 +42,22 @@ void RenderingGeometryApp::GenSphere(int radius, int np, int nm)
 
 	indices = GenIndices(nm, np);
 
-	std::vector<glm::vec2> UV;
-	float V = 0;
-	for (int i = 0; i<2; i++)
+	for(auto point : points)
 	{
-		for (int j = 0; j < points.size() / 2; j++)
-		{
-			UV.push_back(glm::vec2((float)j / (points.size() / 2), V));
-		}
-		V++;
+		vertex = { point, glm::vec4(.5, .5, .5, 1), glm::normalize(point)};
+		vertices.push_back(vertex);
 	}
 
-	for(int x = 0; x < points.size(); x++)
+	float V = 0;
+	for (int i = 0; i < 2; i++)
 	{
-		vertex = { points[x], glm::vec4(.5, .5, .5, 1), UV[x]};
-		vertices.push_back(vertex);
+		for (int j = 0; j < np / 2; j++)
+		{
+			vertices[V].m_UV = glm::vec2(i / ((float)np), j / ((float)nm - 1));
+			V++;
+			if (V == vertices.size())
+				break;
+		}
 	}
 	mesh->initialize(indices, vertices);
 }
@@ -157,16 +158,8 @@ void RenderingGeometryApp::startup()
 	shader = new Shader();
 	texture = new Texture();
 	
-	// A----B
-	// |\	|
-	// | \	|
-	// |  \ |
-	//D|---\|C
-	//
-	//
-	//shader->defaultLoad();
-	shader->load("ShaderSources/VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
-	shader->load("ShaderSources/BLINN_PHONG_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
+	shader->load("bin/ShaderSources/TEXTURE_VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
+	shader->load("bin/ShaderSources/TEXTURE_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
 
 	texture->load("bin/Textures/earth.png");
@@ -201,11 +194,13 @@ void RenderingGeometryApp::update(float dt)
 void RenderingGeometryApp::draw()
 {
 	shader->Bind();
+	
 	int handle = shader->getUniform("ProjectionViewWorld");
 	int lightPosHandle = shader->getUniform("lightPos");
 	int lightColorHandle = shader->getUniform("lightColor");
 	int lightDirHandle = shader->getUniform("lightDir");
 	int cameraPosHandle = shader->getUniform("cameraPos");
+	int textureHandle = shader->getUniform("diffuseTexture");
 
 	glm::mat4 mvp = m_projection * m_view * m_model;
 	glUniformMatrix4fv(handle, 1, GL_FALSE, &mvp[0][0]);
@@ -213,11 +208,15 @@ void RenderingGeometryApp::draw()
 	auto col = glm::vec3(1, .5, 0);
 	auto dir = glm::vec3(0, 1, 0);
 	auto cameraPos = glm::vec3(10, -10, -10);
+	auto tex = glm::vec2(0, 0);
 
+	texture->bind(0);
 	glUniform3fv(lightPosHandle, 1, &pos[0]);
 	glUniform3fv(lightColorHandle, 1, &col[0]);
 	glUniform3fv(lightDirHandle, 1, &dir[0]);
 	glUniform3fv(cameraPosHandle, 1, &cameraPos[0]);
+	glUniform3fv(textureHandle, 1, &tex[0]);
+
 	mesh->render();
 	shader->UnBind();
 }

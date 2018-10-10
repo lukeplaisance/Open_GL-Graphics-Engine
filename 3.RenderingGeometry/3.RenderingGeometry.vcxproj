@@ -145,6 +145,9 @@
       <Project>{1a504966-1a93-4e46-9b4f-91eacbf5ed67}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\Textures\earth.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

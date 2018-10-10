@@ -30,7 +30,7 @@ bool Texture::load(const char * fileName)
 	int y = 0;
 	m_loadedpixels = stbi_load(fileName, &x, &y, &comp, STBI_default);
 
-	if (m_loadedpixels = nullptr)
+	if (m_loadedpixels != nullptr)
 	{
 		glGenTextures(1, &m_handle);
 		glBindTexture(GL_TEXTURE_2D, m_handle);
@@ -49,7 +49,7 @@ bool Texture::load(const char * fileName)
 		return true;
 	}
 
-	return false;
+	return true;
 }
 
 void Texture::bind(unsigned int slot) const

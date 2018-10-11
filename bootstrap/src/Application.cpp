@@ -28,7 +28,7 @@ void Application::run(const char * title, unsigned int width,
 	auto minor = ogl_GetMinorVersion();
 	std::printf("major:: %i.%i", major, minor);
 
-	glClearColor(0.f, 0.f, 0.f, 1);//sets the clear color for the window
+	glClearColor(0.5f, 0.5f, 0.5f, 1);//sets the clear color for the window
 	glEnable(GL_DEPTH_TEST); // enables the depth buffer 
 
 	ImGui_ImplGlfwGL3_Init(m_window, true);

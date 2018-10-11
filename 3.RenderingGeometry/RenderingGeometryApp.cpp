@@ -49,15 +49,16 @@ void RenderingGeometryApp::GenSphere(int radius, int np, int nm)
 	}
 
 	float V = 0;
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i <= nm; i++)
 	{
-		for (int j = 0; j < np / 2; j++)
+		for (int j = 0; j < np; j++)
 		{
 			vertices[V].m_UV = glm::vec2(i / ((float)np), j / ((float)nm - 1));
 			V++;
 			if (V == vertices.size())
 				break;
 		}
+	
 	}
 	mesh->initialize(indices, vertices);
 }
@@ -162,10 +163,11 @@ void RenderingGeometryApp::startup()
 	shader->load("bin/ShaderSources/TEXTURE_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
 
-	texture->load("bin/Textures/earth.png");
+	
 
 
-	GenSphere(5, 100, 100);
+	GenSphere(5, 50, 50);
+	texture->load("bin/Textures/cloud.png");
 	/*std::vector<MeshRenderer::Vertex> vertices = GenCube(vertices);
 	std::vector<unsigned int> indices = genCubeIndices();
 	mesh->initialize(indices, vertices);*/
@@ -194,6 +196,7 @@ void RenderingGeometryApp::update(float dt)
 void RenderingGeometryApp::draw()
 {
 	shader->Bind();
+	texture->bind(0);
 	
 	int handle = shader->getUniform("ProjectionViewWorld");
 	int lightPosHandle = shader->getUniform("lightPos");
@@ -210,7 +213,6 @@ void RenderingGeometryApp::draw()
 	auto cameraPos = glm::vec3(10, -10, -10);
 	auto tex = glm::vec2(0, 0);
 
-	texture->bind(0);
 	glUniform3fv(lightPosHandle, 1, &pos[0]);
 	glUniform3fv(lightColorHandle, 1, &col[0]);
 	glUniform3fv(lightDirHandle, 1, &dir[0]);

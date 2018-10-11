@@ -162,12 +162,26 @@ void RenderingGeometryApp::startup()
 	shader->load("bin/ShaderSources/TEXTURE_VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
 	shader->load("bin/ShaderSources/TEXTURE_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
-
+	texture->load("bin/Textures/cloud.png");
 	
 
+	//Render Plane
+	
+	MeshRenderer::Vertex A = { glm::vec4(-10, 10, 0, 1), glm::vec4(1, 0, 0, 1), glm::vec2(0, 0) }; //top left
+	MeshRenderer::Vertex B = { glm::vec4(10, 10, 0, 1), glm::vec4(0, 1, 0, 1), glm::vec2(1, 0)}; //top right
+	MeshRenderer::Vertex C = { glm::vec4(10, -10, 0, 1), glm::vec4(0, 0, 1, 1), glm::vec2(1, 1) }; //bottom right 
+	MeshRenderer::Vertex D = { glm::vec4(-10, -10, 0, 1), glm::vec4(0, 0, 0, 1), glm::vec2(0, 1) }; //botton left
+	std::vector<MeshRenderer::Vertex> vertices = { A, B, C, D };
+	std::vector<unsigned int> indices = { 0, 1, 2, 2, 3, 0 };
+	mesh->initialize(indices, vertices);
 
-	GenSphere(5, 50, 50);
-	texture->load("bin/Textures/cloud.png");
+	////Render Sphere
+
+	//GenSphere(5, 50, 50);
+	
+
+	//Render Cube
+
 	/*std::vector<MeshRenderer::Vertex> vertices = GenCube(vertices);
 	std::vector<unsigned int> indices = genCubeIndices();
 	mesh->initialize(indices, vertices);*/
@@ -187,10 +201,10 @@ void RenderingGeometryApp::update(float dt)
 	float angle = glm::cos(rt*0.001f) * dt;
 	rot = glm::rotate(glm::mat4(1), angle, glm::vec3(0, 1, 0));
 	trans = glm::translate(glm::mat4(1), glm::vec3(0, 0, 0));
-	m_view = glm::lookAt(glm::vec3(10, -10, -10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	m_view = glm::lookAt(glm::vec3(-5, 10, -30), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	m_projection = glm::perspective(glm::quarter_pi<float>(), 800 / (float)600, 0.1f, 1000.f);
 	m_model = glm::mat4(1) * trans * rot;
-	//m_model = glm::mat4(1);
+	m_model = glm::mat4(1);
 }
 
 void RenderingGeometryApp::draw()

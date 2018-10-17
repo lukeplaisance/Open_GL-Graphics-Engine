@@ -159,14 +159,17 @@ void RenderingGeometryApp::startup()
 	shader = new Shader();
 	texture = new Texture();
 	
+	//load shader
 	shader->load("bin/ShaderSources/TEXTURE_VERTEX.vert", Shader::SHADER_TYPE::VERTEX);
 	shader->load("bin/ShaderSources/TEXTURE_FRAG.frag", Shader::SHADER_TYPE::FRAGMENT);
 	shader->attach();
+
+	//load texture
 	texture->load("bin/Textures/cloud.png");
 	
 
 	//Render Plane
-	
+	//										position				color				UV
 	MeshRenderer::Vertex A = { glm::vec4(-10, 10, 0, 1), glm::vec4(1, 0, 0, 1), glm::vec2(0, 0) }; //top left
 	MeshRenderer::Vertex B = { glm::vec4(10, 10, 0, 1), glm::vec4(0, 1, 0, 1), glm::vec2(1, 0)}; //top right
 	MeshRenderer::Vertex C = { glm::vec4(10, -10, 0, 1), glm::vec4(0, 0, 1, 1), glm::vec2(1, 1) }; //bottom right 
